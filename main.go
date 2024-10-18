@@ -290,6 +290,7 @@ func main() { //nolint:funlen,maintidx
 		setupLog.Info("DSCI auto creation is disabled")
 		setupLog.Info("bandini was here")
 	} else {
+		setupLog.Info("bandini was here part deux")
 		var createDefaultDSCIFunc manager.RunnableFunc = func(ctx context.Context) error {
 			err := upgrade.CreateDefaultDSCI(ctx, setupClient, platform, dscApplicationsNamespace, dscMonitoringNamespace)
 			if err != nil {
