@@ -63,3 +63,5 @@ local.mk
 # Ignore temporary files created by the Makefile
 *.mktmp.*
 
+# Ignore temp catalog sources for OLM testing
+/config/samples/opendatahub-catalog-*.yaml

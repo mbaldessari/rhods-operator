@@ -346,6 +346,17 @@ catalog-build: opm ## Build a catalog image.
 catalog-push: ## Push a catalog image.
 	$(MAKE) image-push IMG=$(CATALOG_IMG)
 
+
+.PHONY: catalog-install
+catalog-install: config/samples/opendatahub-catalog-$(VERSION).yaml ## Install the OLM catalog on a cluster (for testing).
+	-oc delete -f config/samples/opendatahub-catalog-$(VERSION).yaml
+	oc create -f config/samples/opendatahub-catalog-$(VERSION).yaml
+
+.PHONY: config/samples/opendatahub-catalog-$(VERSION).yaml
+config/samples/opendatahub-catalog-$(VERSION).yaml:
+	cp  config/samples/opendatahub-catalog.yaml config/samples/opendatahub-catalog-$(VERSION).yaml
+	sed -i -e "s@CATALOG_IMG@$(CATALOG_IMG)@g" config/samples/opendatahub-catalog-$(VERSION).yaml
+
 TOOLBOX_GOLANG_VERSION := 1.21
 
 # Generate a Toolbox container for locally testing changes easily
