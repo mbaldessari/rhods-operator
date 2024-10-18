@@ -1,0 +1,9 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: test-opendatahub-operator
+  namespace: openshift-marketplace
+spec:
+  displayName: Test Opendatahub Operator
+  sourceType: grpc
+  image: CATALOG_IMG
