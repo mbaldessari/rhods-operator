@@ -80,10 +80,10 @@ type DSCInitializationReconciler struct {
 func (r *DSCInitializationReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) { //nolint:funlen,gocyclo,maintidx
 	log := logf.FromContext(ctx).WithName("DSCInitialization")
 	log.Info("Reconciling DSCInitialization.", "DSCInitialization Request.Name", req.Name)
-
 	currentOperatorRelease := cluster.GetRelease()
 	// Set platform
 	platform := currentOperatorRelease.Name
+	log.Info("reconcile bandini", "bandini1", platform)
 
 	instances := &dsciv1.DSCInitializationList{}
 	if err := r.Client.List(ctx, instances); err != nil {
@@ -190,6 +190,7 @@ func (r *DSCInitializationReconciler) Reconcile(ctx context.Context, req ctrl.Re
 		return reconcile.Result{}, err
 	}
 	managementStateChangeTrustedCA = false
+	log.Info("reconcile bandini", "bandini5", req.Name)
 
 	switch req.Name {
 	case "prometheus": // prometheus configmap
@@ -223,6 +224,8 @@ func (r *DSCInitializationReconciler) Reconcile(ctx context.Context, req ctrl.Re
 
 		return ctrl.Result{}, nil
 	default:
+		log.Info("reconcile bandini", "bandini9", req.Name)
+
 		createUsergroup, err := cluster.IsDefaultAuthMethod(ctx, r.Client)
 		if err != nil && !k8serr.IsNotFound(err) { // only keep reconcile if real error but not missing CRD or missing CR
 			return ctrl.Result{}, err
@@ -268,6 +271,8 @@ func (r *DSCInitializationReconciler) Reconcile(ctx context.Context, req ctrl.Re
 			}
 		default:
 			// Check if user opted for disabling creating user groups
+			log.Info("reconcile bandini", "bandini10", "foo")
+
 			if !createUsergroup {
 				log.Info("DSCI disabled usergroup creation")
 			} else {
@@ -280,6 +285,7 @@ func (r *DSCInitializationReconciler) Reconcile(ctx context.Context, req ctrl.Re
 				log.Info("Monitoring enabled, won't apply changes", "cluster", "ODH Mode")
 			}
 		}
+		log.Info("reconcile bandini", "bandini12", "bar")
 
 		// Apply Service Mesh configurations
 		if errServiceMesh := r.configureServiceMesh(ctx, instance); errServiceMesh != nil {
