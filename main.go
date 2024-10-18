@@ -146,7 +146,7 @@ func main() { //nolint:funlen,maintidx
 
 	flag.Parse()
 
-	ctrl.SetLogger(logger.NewLogger(logmode, &opts))
+	ctrl.SetLogger(logger.NewLogger("devel", &opts))
 
 	// root context
 	ctx := ctrl.SetupSignalHandler()
@@ -288,6 +288,7 @@ func main() { //nolint:funlen,maintidx
 	disableDSCConfig, existDSCConfig := os.LookupEnv("DISABLE_DSC_CONFIG")
 	if existDSCConfig && disableDSCConfig != "false" {
 		setupLog.Info("DSCI auto creation is disabled")
+		setupLog.Info("bandini was here")
 	} else {
 		var createDefaultDSCIFunc manager.RunnableFunc = func(ctx context.Context) error {
 			err := upgrade.CreateDefaultDSCI(ctx, setupClient, platform, dscApplicationsNamespace, dscMonitoringNamespace)
