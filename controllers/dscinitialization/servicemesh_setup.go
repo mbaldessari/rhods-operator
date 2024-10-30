@@ -21,6 +21,7 @@ import (
 
 func (r *DSCInitializationReconciler) configureServiceMesh(ctx context.Context, instance *dsciv1.DSCInitialization) error {
 	log := logf.FromContext(ctx)
+	log.Info("BANDINI1: configureServiceMesh %v", "instance", instance)
 	serviceMeshManagementState := operatorv1.Removed
 	if instance.Spec.ServiceMesh != nil {
 		serviceMeshManagementState = instance.Spec.ServiceMesh.ManagementState
