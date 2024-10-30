@@ -1073,7 +1073,7 @@ spec:
                 - /manager
                 env:
                 - name: DISABLE_DSC_CONFIG
-                  value: "true"
+                  value: "false"
                 - name: OPERATOR_NAMESPACE
                   valueFrom:
                     fieldRef:
